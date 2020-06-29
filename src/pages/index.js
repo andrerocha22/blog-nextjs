@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import {
-  motion,
-  useViewportScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion";
+import { getSortedPostsData } from "../lib/posts";
+
+import { motion } from "framer-motion";
 
 import {
+  ContainerHero,
   BackgroundPhotos,
   ContainerCards,
+  CardsList,
   TitleContainer,
   WelcomeTitle,
   SwipeCTA,
   SwipeIcon,
   SwipePageContainer,
-} from "./styles";
+  ArticlesTitle,
+} from "../styles/homeStyles";
 import Card from "../components/Card";
 import { imagesNewYork } from "../data/imageNewYork";
 import { imagesToronto } from "../data/imageToronto";
@@ -24,7 +24,7 @@ import { wrap } from "@popmotion/popcorn";
 const variants = {
   enter: () => {
     return {
-      opacity: 0.8,
+      opacity: 0.5,
     };
   },
   center: () => {
@@ -39,7 +39,7 @@ const variants = {
   },
 };
 
-export default function Home() {
+function Home({ posts }) {
   const welcomeTexts = [
     "Bem-Vindo!",
     "Welcome!",
@@ -49,16 +49,10 @@ export default function Home() {
     "Benvenuto!",
   ];
 
-  // const welcomeString = Array.from("Bem-Vindo!");
   const [[page, direction], setPage] = useState([0, 0]);
 
-  const { scrollYProgress } = useViewportScroll();
-  const yRange = useTransform(scrollYProgress, [0, 0.9], [0, 1]);
-
-  useEffect(() => yRange.onChange((v) => console.log(v)), [yRange]);
-
   const imageIndexNewYork = wrap(0, imagesNewYork.length, page);
-  // const imageIndexToronto = wrap(0, imagesToronto.length, page);
+  const imageIndexToronto = wrap(0, imagesToronto.length, page);
 
   const paginate = (newDirection) => {
     if (page + newDirection < imagesNewYork.length) {
@@ -69,20 +63,35 @@ export default function Home() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       paginate(1);
     }, 5000);
   }, [page]);
 
+  const handleScrollPage = () => {
+    document.querySelector("#cards").scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div>
+    <motion.div
+      initial="initial"
+      animate="enter"
+      exit="exit"
+      variants={{ exit: { transition: { staggerChildren: 0.1 } } }}
+    >
       <Head>
-        <title>My page title</title>
+        <title>MyVision</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
       <main>
-        {/* <Container>
+        <ContainerHero>
           <BackgroundPhotos
             key={page}
             imageUrl={imagesNewYork[imageIndexNewYork]}
@@ -92,7 +101,7 @@ export default function Home() {
             animate="center"
             exit="exit"
             transition={{
-              opacity: { duration: 5 },
+              opacity: { duration: 1 },
             }}
           >
             <TitleContainer>
@@ -114,74 +123,49 @@ export default function Home() {
                 </WelcomeTitle>
               ))}
             </TitleContainer>
-            <SwipePageContainer>
-              <SwipeIcon src="/down-arrow.svg" />
+            <SwipePageContainer whileHover={{ backgroundColor: "#3b3b3b" }} v>
+              <SwipeIcon
+                src="/down-arrow.svg"
+                onClick={() => handleScrollPage()}
+              />
             </SwipePageContainer>
           </BackgroundPhotos>
-        </Container> */}
-        <ContainerCards>
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
-          <Card
-            title="Pizza"
-            subtitle="5 melhores pizzas em NYC"
-            description="Onde encontrar as melhores pizzarias em uma das cidades mais famosas do mundo. Contarei sobre minha..."
-            imageUrl="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          />
+        </ContainerHero>
+
+        <ContainerCards id="cards">
+          <ArticlesTitle
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+          >
+            PUBLICAÇÕES
+          </ArticlesTitle>
+          <CardsList>
+            {posts.map((post) => (
+              <Card
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                subtitle="5 melhores pizzas em NYC"
+                description={post.description}
+                imageUrl={post.imageUrl}
+              />
+            ))}
+          </CardsList>
         </ContainerCards>
       </main>
-    </div>
+    </motion.div>
   );
 }
+
+export async function getStaticProps() {
+  const posts = await getSortedPostsData();
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
+export default Home;

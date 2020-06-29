@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { motion, useViewportScroll, useTransform } from "framer-motion";
+import Link from "next/link";
+import {
+  motion,
+  useViewportScroll,
+  useTransform,
+  useAnimation,
+} from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import {
   Title,
   Button,
@@ -8,60 +15,73 @@ import {
   ImageCard,
   Description,
   DescriptionText,
+  BlackBackground,
 } from "./styles";
 
-function Card({ imageUrl, title, subtitle, description }) {
-  // const { scrollYProgress } = useViewportScroll();
+function Card({ imageUrl, title, subtitle, description, id }) {
+  const [showDescription, setshowDescription] = useState(false);
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    } else {
+      controls.start("hidden");
+    }
+  }, [controls, inView]);
 
   const variants = {
-    enter: () => {
-      return {
-        opacity: 0,
-      };
+    initial: { scale: 0.96, y: 30, opacity: 0 },
+    visible: {
+      scale: 1,
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.5 * Math.random(),
+        duration: 0.5,
+        ease: [0.48, 0.15, 0.25, 0.96],
+      },
     },
-    center: () => {
-      return {
-        opacity: 1,
-      };
+    hidden: {
+      opacity: 0,
     },
-    exit: () => {
-      return {
-        opacity: 0,
-      };
+    exit: {
+      scale: 0.6,
+      y: 100,
+      opacity: 0,
+      delay: 0.5 * Math.random(),
+      transition: { duration: 0.5, ease: [0.48, 0.15, 0.25, 0.96] },
     },
   };
 
-  const [showDescription, setshowDescription] = useState(false);
-  // const yRange = useTransform(scrollYProgress, [0, 0.9], [0, 1]);
-
-  // useEffect(() => {
-  //   yRange.onChange((v) => {
-  //     console.log(v);
-  //   });
-  // }, [yRange]);
-
   return (
     <CardContainer
+      ref={ref}
+      initial="initial"
+      animate={controls}
+      exit="exit"
+      variants={variants}
       imageUrl={imageUrl}
       whileHover={{ scale: 1.1 }}
       onHoverStart={() => setshowDescription(true)}
       onHoverEnd={() => setshowDescription(false)}
-      variants={variants}
-      initial="enter"
-      animate="center"
-      exit="exit"
-      transition={{
-        opacity: { duration: 2 },
-      }}
     >
-      <Title>{title}</Title>
-      <SubTitle>{subtitle}</SubTitle>
+      <BlackBackground>
+        <Title>{title}</Title>
+        <SubTitle>{subtitle}</SubTitle>
+      </BlackBackground>
+
       <Description
         initial={{ opacity: 0 }}
         animate={{ opacity: showDescription ? 1 : 0 }}
       >
         <DescriptionText>{description}</DescriptionText>
-        <Button>See more</Button>
+        <Link scroll={false} href={"/posts/[id]"} as={`/posts/${id}`}>
+          <Button whileHover={{ backgroundColor: "#34C4F2", scale: 1.1 }}>
+            Ver mais
+          </Button>
+        </Link>
       </Description>
     </CardContainer>
   );

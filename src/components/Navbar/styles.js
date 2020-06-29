@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled(motion.header)`
   top: 0;
   left: 0;
   right: 0;
@@ -10,14 +10,7 @@ export const HeaderContainer = styled.header`
   position: fixed;
   align-items: center;
   box-sizing: content-box;
-  background: rgb(0, 212, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 212, 255, 1) 0%,
-    rgba(189, 13, 161, 1) 51%,
-    rgba(190, 0, 246, 1) 100%,
-    rgba(190, 0, 246, 1) 100%
-  );
+  background: #000;
 `;
 
 export const Container = styled.div`
@@ -35,10 +28,11 @@ export const Container = styled.div`
   }
 `;
 
-export const LogoName = styled.h1`
+export const LogoName = styled(motion.h1)`
   text-align: center;
   align-self: center;
   color: #f9f9f9;
+  cursor: pointer;
 `;
 
 export const ContainerLogo = styled.div`

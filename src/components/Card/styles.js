@@ -14,8 +14,25 @@ export const CardContainer = styled(motion.div)`
   background-size: cover;
 `;
 
-export const Button = styled.button`
+export const BlackBackground = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 6, 50, 0.8) 40%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding: 1rem;
+  border-radius: 1.2rem 1.2rem 0 0;
+`;
+
+export const Button = styled(motion.a)`
   color: #2b2b2b;
+  cursor: pointer;
   font-weight: 700;
   background-color: #f9f9f9;
   padding: 5px 8px;
@@ -37,7 +54,7 @@ export const Description = styled(motion.div)`
   padding: 1rem;
   justify-content: center;
   align-content: center;
-  background-color: #777777ee;
+  background-color: #000000aa;
   border-radius: 0 0 1.2rem 1.2rem;
 `;
 

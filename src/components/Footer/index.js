@@ -1,14 +1,32 @@
 import React from "react";
+import { Container, SocialIcons, Icons } from "./styles";
+import { AiFillGithub, AiFillLinkedin, AiFillMail } from "react-icons/ai";
 
 function Footer() {
   return (
-    <a
-      href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Powered by <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-    </a>
+    <Container>
+      <SocialIcons>
+        <Icons
+          href="https://github.com/andrerocha22"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <AiFillGithub color="#ffffff" size="2.5rem" />
+        </Icons>
+
+        <Icons
+          href="https://www.linkedin.com/in/andrefelipe22/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <AiFillLinkedin color="#ffffff" size="2.5rem" />
+        </Icons>
+
+        <Icons href="mailto:andreerocha2@gmail.com">
+          <AiFillMail color="#ffffff" size="2.5rem" />
+        </Icons>
+      </SocialIcons>
+    </Container>
   );
 }
 

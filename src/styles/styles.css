@@ -3,7 +3,7 @@
 body,
 html {
   margin: 0;
-  background-color: #000000;
+  background: #f8f8f8;
   font-family: Roboto, sans-serif;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
@@ -15,4 +15,6 @@ html {
   padding: 0;
   box-sizing: border-box;
   outline: none;
+  border: none;
+  text-decoration: none;
 }
