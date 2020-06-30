@@ -25,6 +25,8 @@ export const Container = styled.div`
   @media (max-width: 768px) {
     padding-left: 1.2rem;
     padding-right: 1rem;
+    align-items: center;
+    justify-content: center;
   }
 `;
 

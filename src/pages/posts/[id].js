@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Container,
   Banner,
@@ -64,7 +64,7 @@ function Posts({ postsData }) {
       <Link href="/">
         <BackLink>
           <AiOutlineArrowLeft />
-            Voltar
+          Voltar
         </BackLink>
       </Link>
       <Banner src={postsData.imageUrl} variants={imageVariants} />

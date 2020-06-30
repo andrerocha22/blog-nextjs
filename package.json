@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint ./src/pages/index.js ./src/pages/**/*.js ./src/components/**/*.js"
   },
   "dependencies": {
     "@popmotion/popcorn": "^0.4.4",
+    "babel-eslint": "^10.1.0",
     "framer-motion": "^1.11.1",
     "gray-matter": "^4.0.2",
     "next": "9.4.4",
@@ -21,6 +23,12 @@
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.10.7"
+    "babel-plugin-styled-components": "^1.10.7",
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.2",
+    "eslint-plugin-react-hooks": "^4.0.4"
   }
 }

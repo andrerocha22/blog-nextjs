@@ -41,7 +41,7 @@ export const BackLink = styled.div`
   font-size: 1.2rem;
   cursor: pointer;
   margin-bottom: 1rem;
-  width: fit-content;
+  width: fit-content; 
 `;
 
 export const Footer = styled(motion.div)`

@@ -21,6 +21,10 @@ export const CardsList = styled(motion.section)`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 50px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const BackgroundPhotos = styled(motion.div)`
@@ -45,6 +49,9 @@ export const WelcomeTitle = styled(motion.h1)`
   width: auto;
   z-index: 2;
   text-align: center;
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -57,6 +64,10 @@ export const TitleContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.7); /* Black w/opacity/see-through */
   border: 10px solid #f1f1f1;
   padding: 1rem 1.5rem;
+
+  @media (max-width: 768px) {
+    border: 6px solid #f1f1f1;
+  }
 `;
 
 export const SwipePageContainer = styled(motion.div)`

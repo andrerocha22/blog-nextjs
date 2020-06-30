@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import {
-  motion,
-  useViewportScroll,
-  useTransform,
-  useAnimation,
-} from "framer-motion";
+import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   Title,
   Button,
   SubTitle,
   CardContainer,
-  ImageCard,
   Description,
   DescriptionText,
   BlackBackground,

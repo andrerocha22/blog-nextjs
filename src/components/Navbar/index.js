@@ -5,9 +5,9 @@ import {
   Container,
   LogoName,
   ContainerLogo,
-  NavBar,
-  NavItem,
-  Item,
+  // NavBar,
+  // NavItem,
+  // Item,
 } from "./styles";
 import { useViewportScroll, useTransform } from "framer-motion";
 
@@ -48,7 +48,7 @@ function Navbar() {
             </LogoName>
           </Link>
         </ContainerLogo>
-        <NavBar>
+        {/* <NavBar>
           <NavItem
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -76,7 +76,7 @@ function Navbar() {
               <Item>Contato</Item>
             </Link>
           </NavItem>
-        </NavBar>
+        </NavBar> */}
       </Container>
     </HeaderContainer>
   );
